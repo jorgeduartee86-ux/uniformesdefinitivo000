@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M23 Sport | Catálogo Oficial</title>
+    <meta name="description"
+        content="Diseñamos y fabricamos uniformes deportivos de alta calidad personalizados para tu equipo. Fútbol, baloncesto, voleibol y más. Envíos rápidos.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">M23 <span>SPORT</span></a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#hero">Inicio</a></li>
+                    <li><a href="#products">Catálogo</a></li>
+                    <li><a href="#customization">Personalización</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                    <li><a href="#" id="btnColombia" class="btn-nav">Selección Colombia</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" style="background: url('https://i.ibb.co/hRy1J6t4/retouch-2025092012592310.jpg') center/cover no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1 class="animate-up">EL FUTBOL ES NUESTRA PASIÓN</h1>
+            <p class="animate-up delay-1">Diseños exclusivos y calidad profesional para tu equipo</p>
+            <div class="hero-buttons animate-up delay-2">
+                <a href="#products" class="btn btn-primary">VER CATÁLOGO</a>
+                <a href="#" id="btnColombiaHero" class="btn"
+                    style="background-color: #FFD700; color: #111; border: none; font-weight: bold;">SELECCIÓN
+                    COLOMBIA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section">
+        <div class="container">
+            <h2 class="section-title">CATÁLOGO OFICIAL 2026</h2>
+            <p class="section-subtitle">Viste a tu equipo con la mejor tecnología y diseño</p>
+
+            <div class="products-grid" id="catalog-grid">
+                <!-- Products will be dynamically inserted here by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Customization Section -->
+    <section id="customization" class="section bg-dark">
+        <div class="container">
+            <h2 class="section-title text-white">CREA TU IDENTIDAD</h2>
+            <p class="section-subtitle text-gray">Personalización total en 3 simples pasos</p>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-palette"></i>
+                        <span class="step-number">01</span>
+                    </div>
+                    <h3>Elige tu Diseño</h3>
+                    <p>Selecciona entre nuestros modelos base o propón tu propia idea. Colores ilimitados.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-shield-alt"></i>
+                        <span class="step-number">02</span>
+                    </div>
+                    <h3>Agrega tus Logos</h3>
+                    <p>Envíanos el escudo de tu equipo y patrocinadores. Nosotros los integramos en alta definición.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-tshirt"></i>
+                        <span class="step-number">03</span>
+                    </div>
+                    <h3>Nombres y Números</h3>
+                    <p>Personaliza cada prenda con el nombre y número de tus jugadores. Tipografías oficiales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="section">
+        <div class="container">
+            <div class="benefits-layout">
+                <div class="benefits-image">
+                    <img src="https://placehold.co/600x400" alt="Imagen referencial"
+                        class="img-fluid rounded shadow-lg">
+                    <!-- Using hero image again or could be another generated one if needed, but hero works well here too or maybe abstract -->
+                </div>
+                <div class="benefits-content">
+                    <h2 class="section-title text-left">POR QUÉ ELEGIR M23 SPORT</h2>
+                    <ul class="benefits-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h4>Materiales Premium</h4>
+                                <p>Telas con tecnología de secado rápido, anti-baterias y protección UV.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-pencil-ruler"></i>
+                            <div>
+                                <h4>Diseño Exclusivo</h4>
+                                <p>Nuestro equipo de diseñadores creará una propuesta única para tu club.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-shipping-fast"></i>
+                            <div>
+                                <h4>Envíos Rápidos</h4>
+                                <p>Tiempos de entrega garantizados para que tengas tu uniforme antes del primer partido.
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-medal"></i>
+                            <div>
+                                <h4>Garantía de Calidad</h4>
+                                <p>Reemplazo inmediato si encuentras algún defecto de fabricación.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Call To Action -->
+    <!-- Call To Action -->
+    <section id="contact" class="section cta-section">
+        <div class="container">
+            <div class="contact-grid-layout">
+                <div class="contact-text">
+                    <h2 class="text-white">¿LISTO PARA VESTIR COMO UN PROFESIONAL?</h2>
+                    <p class="text-white mb-4">No dejes que tu equipo pase desapercibido. Completa el formulario y
+                        recibe una propuesta de diseño gratis.</p>
+                    <div class="cta-buttons">
+                        <a href="https://wa.me/message/JW6FHDHHZIRIC1" class="btn btn-whatsapp" target="_blank"><i
+                                class="fab fa-whatsapp"></i>
+                            WHATSAPP</a>
+                        <a href="mailto:jorgeduartee86@gmail.com" class="btn btn-email"><i class="far fa-envelope"></i>
+                            EMAIL</a>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Nombre del Equipo / Contacto" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Correo Electrónico" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="sport">
+                                <option value="" disabled selected>Selecciona tu Deporte</option>
+                                <option value="futbol">Fútbol</option>
+                                <option value="baloncesto">Baloncesto</option>
+                                <option value="voleibol">Voleibol</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="3" placeholder="Detalles (cantidad, colores, etc.)"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">ENVIAR COTIZACIÓN</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="footer-logo">M23 <span>SPORT</span></a>
+                <p>Tu aliado en equipamiento deportivo profesional. Calidad, diseño y pasión por el deporte.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="#hero">Inicio</a></li>
+                    <li><a href="#products">Catálogo</a></li>
+                    <li><a href="#customization">Personalización</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Cra 49 #45-79, Local 303, Pasaje Comercial Metro
+                        Novedades, Medellín</li>
+                    <li><i class="fas fa-phone"></i> +57 300 972 6067</li>
+                    <li><i class="fas fa-envelope"></i> jorgeduartee86@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 M23 Sport. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/message/JW6FHDHHZIRIC1" class="btn-whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Colombia Modal -->
+    <div id="colombiaModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Colección Selección Colombia</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="colombiaModalBody">
+                <div class="products-grid" id="colombia-catalog-grid">
+                    <!-- Colombia Products will be dynamically inserted here by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="chatbot.js?v=7"></script>
+</body>
+
+</html>

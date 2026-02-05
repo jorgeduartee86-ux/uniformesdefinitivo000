@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Uniforme | M23 Sport</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-detail-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 120px 20px 60px;
+            /* Space for Header */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .detail-image-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-height: 600px;
+        }
+
+        .detail-image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .product-title-lg {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .base-price {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-family: 'Oswald', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .options-section {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .option-group {
+            margin-bottom: 20px;
+        }
+
+        .option-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .checkbox-container input {
+            transform: scale(1.2);
+        }
+
+        .wholesale-info {
+            background: #e3f2fd;
+            color: #0d47a1;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2196f3;
+            font-size: 0.9rem;
+        }
+
+        .final-price-box {
+            background: var(--secondary);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .final-price-box span {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .total-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .customer-form-section {
+            border-top: 2px solid var(--primary);
+            padding-top: 30px;
+        }
+
+        .customer-form-section h3 {
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .product-detail-container {
+                grid-template-columns: 1fr;
+                padding-top: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header (Same as index) -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">M23 <span>SPORT</span></a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Volver al Catálogo</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="product-detail-container">
+        <!-- Left: Image -->
+        <div class="detail-image-container">
+            <img id="detailImg" src="" alt="Cargando...">
+        </div>
+
+        <!-- Right: Info & Purchase -->
+        <div class="product-purchase-column">
+            <h1 class="product-title-lg" id="detailTitle">Cargando...</h1>
+
+            <!-- Consultation Button (Top Position) -->
+            <button class="btn-consult-team" onclick="openChatFromDetail()" style="margin-top: 0; margin-bottom: 20px;">
+                <i class="fas fa-users"></i> CONSULTAR PARA EQUIPO (AL POR MAYOR)
+            </button>
+
+            <p class="base-price" id="detailBasePrice">$55.000 COP</p>
+
+            <div class="options-section">
+                <!-- Multi-Size Selector -->
+                <div class="multi-size-container">
+                    <p style="margin-bottom:15px; color:#555; font-weight:600;">Selecciona cantidad por talla:</p>
+
+                    <!-- S -->
+                    <div class="size-row-item">
+                        <span class="size-badge">S</span>
+                        <div class="qty-selector-sm">
+                            <button type="button" onclick="updateSizeQty('S', -1)">−</button>
+                            <input type="number" id="qty-S" value="0" class="qty-input-sm" readonly>
+                            <button type="button" onclick="updateSizeQty('S', 1)">+</button>
+                        </div>
+                    </div>
+                    <!-- M -->
+                    <div class="size-row-item">
+                        <span class="size-badge">M</span>
+                        <div class="qty-selector-sm">
+                            <button type="button" onclick="updateSizeQty('M', -1)">−</button>
+                            <input type="number" id="qty-M" value="0" class="qty-input-sm" readonly>
+                            <button type="button" onclick="updateSizeQty('M', 1)">+</button>
+                        </div>
+                    </div>
+                    <!-- L -->
+                    <div class="size-row-item">
+                        <span class="size-badge">L</span>
+                        <div class="qty-selector-sm">
+                            <button type="button" onclick="updateSizeQty('L', -1)">−</button>
+                            <input type="number" id="qty-L" value="0" class="qty-input-sm" readonly>
+                            <button type="button" onclick="updateSizeQty('L', 1)">+</button>
+                        </div>
+                    </div>
+                    <!-- XL -->
+                    <div class="size-row-item">
+                        <span class="size-badge">XL</span>
+                        <div class="qty-selector-sm">
+                            <button type="button" onclick="updateSizeQty('XL', -1)">−</button>
+                            <input type="number" id="qty-XL" value="0" class="qty-input-sm" readonly>
+                            <button type="button" onclick="updateSizeQty('XL', 1)">+</button>
+                        </div>
+                    </div>
+                    <!-- XXL -->
+                    <div class="size-row-item">
+                        <span class="size-badge">XXL</span>
+                        <div class="qty-selector-sm">
+                            <button type="button" onclick="updateSizeQty('XXL', -1)">−</button>
+                            <input type="number" id="qty-XXL" value="0" class="qty-input-sm" readonly>
+                            <button type="button" onclick="updateSizeQty('XXL', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Units Display -->
+                <div
+                    style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px; text-align: center; border: 1px solid #c8e6c9;">
+                    <i class="fas fa-tshirt" style="color: var(--primary);"></i>
+                    Total Unidades: <strong id="totalUnitsDisplay"
+                        style="font-size:1.4rem; color:var(--secondary);">0</strong>
+                    <div style="font-size: 0.8rem; margin-top:5px; color:#666;">
+                        ¡Lleva 6 o más para <strong>15% DESCUENTO</strong> y Estampado GRATIS!
+                    </div>
+                </div>
+
+                <!-- Logic Rendering Area -->
+                <div id="dynamicOptions" style="margin-top:20px;"></div>
+
+                <!-- Purchase Summary Breakdown -->
+                <div class="purchase-summary-box">
+                    <div class="summary-row">
+                        <span>Precio Unitario:</span>
+                        <span>$55.000 COP</span>
+                    </div>
+
+                    <div class="summary-row" id="printRow">
+                        <span>Estampado:</span>
+                        <span id="summaryPrint">$0</span>
+                    </div>
+                    <div class="summary-row discount" id="discountRow" style="display: none;">
+                        <span><i class="fas fa-percent"></i> Ahorro Mayorista (15%):</span>
+                        <span id="summaryDiscount">-$0</span>
+                    </div>
+                    <div class="summary-row total-row">
+                        <span>TOTAL:</span>
+                        <span id="summaryTotalDisplay">$0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="final-price-box">
+                <span>TOTAL A PAGAR</span>
+                <div class="total-amount" id="detailTotalPrice">$55.000</div>
+            </div>
+
+            <!-- Customer Data Form -->
+            <div class="customer-form-section">
+                <h3>DATOS DE ENTREGA</h3>
+                <form id="purchaseForm">
+                    <div class="form-group">
+                        <input type="text" id="custName" placeholder="Nombre Completo" required class="form-control"
+                            style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc;">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="custPhone" placeholder="Teléfono / Celular" required class="form-control"
+                            style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc;">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="custCity" placeholder="Ciudad" required class="form-control"
+                            style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc;">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="custAddress" placeholder="Dirección de Envío" required
+                            class="form-control"
+                            style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc;">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="custObs" placeholder="Observaciones (Nombres, números, detalles especiales...)"
+                            rows="3" class="form-control"
+                            style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc;"></textarea>
+                    </div>
+
+                    <div class="cart-actions">
+                        <button class="btn btn-primary" onclick="window.addToCart()">
+                            AÑADIR AL CARRITO <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>&copy; 2026 M23 Sport. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/message/JW6FHDHHZIRIC1" class="btn-whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+
+</html>
