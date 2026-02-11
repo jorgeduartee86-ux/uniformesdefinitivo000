@@ -454,6 +454,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const colombiaGrid = document.getElementById('colombia-catalog-grid');
     if (colombiaGrid) renderColombiaCatalog(colombiaGrid);
 
+    // Function to open WhatsApp with specific product message
+    window.openChatWithProduct = function (modelId) {
+        const phoneNumber = "573009726067"; // Tu número de WhatsApp
+        const message = `Hola, me interesa el uniforme Diseño ${modelId}`;
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    };
+
     // E. Product Detail Logic (if present)
     const detailTitle = document.getElementById('detailTitle');
     if (detailTitle) {
@@ -533,8 +541,8 @@ function renderCatalog(container) {
                 <p class="price">Desde $${product.basePrice.toLocaleString('es-CO')}</p>
                 
                 <div class="card-actions" style="display: flex; flex-direction: column; gap: 8px; margin-top: 15px;">
-                    <button onclick="if(window.openChatWithProduct) { window.openChatWithProduct('${product.modelId}'); } else { console.error('Chatbot not initialized'); alert('El chat no está listo aún, espera un momento.'); }" class="btn-chat-product" style="background: var(--primary); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s;">
-                        <i class="fas fa-comment-dots"></i> Consultar este diseño
+                    <button onclick="window.openChatWithProduct('${product.modelId}')" class="btn-chat-product" style="background: var(--primary); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s;">
+                        <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
                     </button>
                     <a href="product.html?id=${product.id}" class="btn-link" style="text-align: center; display: block; border: 1px solid var(--primary); padding: 8px; border-radius: 5px; color: var(--primary); background: transparent;">
                         VER DETALLES
@@ -556,7 +564,7 @@ function renderColombiaCatalog(container) {
             <div class="product-image">
                 <img src="${product.image}" alt="${product.title}">
                 <div class="product-overlay">
-                    <button onclick="window.openChatWithProduct('${product.modelId}')" class="btn-icon"><i class="fas fa-comment-dots"></i></button>
+                    <button onclick="window.openChatWithProduct('${product.modelId}')" class="btn-icon"><i class="fab fa-whatsapp"></i></button>
                 </div>
             </div>
             <div class="product-info">
@@ -564,8 +572,8 @@ function renderColombiaCatalog(container) {
                 <p class="price">$${product.basePrice.toLocaleString('es-CO')}</p>
                 
                 <div class="card-actions" style="display: flex; flex-direction: column; gap: 8px; margin-top: 15px;">
-                    <button onclick="if(window.openChatWithProduct) { window.openChatWithProduct('${product.modelId}'); } else { console.error('Chatbot not initialized'); alert('El chat no está listo aún, espera un momento.'); }" class="btn-chat-product" style="background: var(--primary); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s;">
-                        <i class="fas fa-comment-dots"></i> Consultar este diseño
+                    <button onclick="window.openChatWithProduct('${product.modelId}')" class="btn-chat-product" style="background: var(--primary); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s;">
+                        <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
                     </button>
                     <!-- Detail button points to chat for now as there is no specific page -->
                     <button onclick="window.openChatWithProduct('${product.modelId}')" class="btn-link" style="text-align: center; display: block; border: 1px solid var(--primary); padding: 8px; border-radius: 5px; color: var(--primary); background: transparent; width: 100%; cursor: pointer;">
