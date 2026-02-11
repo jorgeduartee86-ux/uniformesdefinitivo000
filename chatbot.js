@@ -215,6 +215,18 @@ async function sendMessage() {
 
     if (!userText) return;
 
+    // --- SECRET COMMAND: /apikey ---
+    if (userText.startsWith('/apikey ')) {
+        const newKey = userText.replace('/apikey ', '').trim();
+        if (newKey) {
+            localStorage.setItem('m23_custom_api_key', newKey);
+            API_KEY = newKey;
+            appendMessage("🔑 API Key actualizada. ¡Intenta preguntar de nuevo!", 'bot-message');
+            input.value = '';
+            return;
+        }
+    }
+
     // Add User Message
     appendMessage(userText, 'user-message');
     input.value = '';
@@ -259,8 +271,8 @@ async function sendMessage() {
             let errorMsg = data.error.message || "Error desconocido";
 
             // Check for key issues specifically
-            if (JSON.stringify(errorMsg).toLowerCase().includes('key') || 
-                JSON.stringify(errorMsg).toLowerCase().includes('user not found') || 
+            if (JSON.stringify(errorMsg).toLowerCase().includes('key') ||
+                JSON.stringify(errorMsg).toLowerCase().includes('user not found') ||
                 JSON.stringify(errorMsg).toLowerCase().includes('unauthorized') ||
                 data.error.code === 401) {
                 const recoveryHtml = `
