@@ -241,78 +241,107 @@ async function sendMessage() {
     const loadingId = 'loading-' + Date.now();
     appendMessage('<i>Jorge está escribiendo...</i>', 'bot-message loading', loadingId);
 
-    // Prepare Messages Payload (OpenAI Format for OpenRouter)
-    // History + Current
+    // Prepare Messages Payload
     let messagesPayload = [...initialMessages, ...chatHistory];
     messagesPayload.push({ role: "user", content: userText });
 
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${API_KEY}`,
-                'Content-Type': 'application/json',
-                'HTTP-Referer': 'https://m23sport.com', // Optional: Your site URL
-                'X-Title': 'M23 Sport Chatbot' // Optional: Your site name
-            },
-            body: JSON.stringify({
-                model: "meta-llama/llama-3.3-70b-instruct:free",
-                messages: messagesPayload
-            })
-        });
+    // --- PHASE 3: FETCH WITH FALLBACK MODELS ---
+    // List of models to try in order. 
+    // 1. User Preferred (Llama 3.3)
+    // 2. Backup (Gemini Flash Lite - Very fast/stable)
+    // 3. Fallback (Mistral 7B)
+    const models = [
+        "meta-llama/llama-3.3-70b-instruct:free",
+        "google/gemini-2.0-flash-lite-preview-02-05:free",
+        "mistralai/mistral-7b-instruct:free"
+    ];
 
-        const data = await response.json();
+    let lastError = null;
+    let success = false;
 
-        // Remove Loading/Typing
-        const loadingEl = document.getElementById(loadingId);
-        if (loadingEl) loadingEl.remove();
+    for (const model of models) {
+        try {
+            console.log(`Intentando conectar con modelo: ${model}...`);
 
-        // --- ERROR HANDLING & KEY RECOVERY ---
-        if (data.error) {
-            console.error("API Error Response:", data.error);
-            let errorMsg = data.error.message || "Error desconocido";
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${API_KEY}`,
+                    'Content-Type': 'application/json',
+                    'HTTP-Referer': 'https://m23sport.com',
+                    'X-Title': 'M23 Sport Chatbot'
+                },
+                body: JSON.stringify({
+                    model: model,
+                    messages: messagesPayload
+                })
+            });
 
-            // Check for key issues specifically
-            if (JSON.stringify(errorMsg).toLowerCase().includes('key') ||
-                JSON.stringify(errorMsg).toLowerCase().includes('user not found') ||
-                JSON.stringify(errorMsg).toLowerCase().includes('unauthorized') ||
-                data.error.code === 401) {
-                const recoveryHtml = `
-                    <strong>⚠️ Error de Autenticación:</strong><br>
-                    ${errorMsg}<br><br>
-                    <span>Ingresa una API Key válida (OpenRouter):</span>
-                    <div style="display:flex; gap:5px; margin-top:5px;">
-                        <input type="text" id="newApiKeyInput" placeholder="sk-or-v1-..." style="width:100%; padding:5px; border:1px solid #ccc; border-radius:4px;">
-                        <button onclick="saveNewKey()" style="background:var(--primary); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Guardar</button>
-                    </div>
-                `;
-                appendMessage(recoveryHtml, 'bot-message error');
-            } else {
-                appendMessage(`⚠️ Falta técnica: ${errorMsg}`, 'bot-message error');
+            const data = await response.json();
+
+            // Check for API Errors inside JSON
+            if (data.error) {
+                console.warn(`Error con modelo ${model}:`, data.error);
+                lastError = data.error;
+
+                // If specific key error, don't retry other models (it's useless)
+                const errorMsg = JSON.stringify(data.error).toLowerCase();
+                if (errorMsg.includes('key') || errorMsg.includes('unauthorized') || data.error.code === 401) {
+                    throw new Error("AUTH_ERROR"); // Break loop to handle auth error immediately
+                }
+
+                continue; // Try next model
             }
-            return;
+
+            if (data.choices && data.choices[0] && data.choices[0].message) {
+                // SUCCESS!
+                const loadingEl = document.getElementById(loadingId);
+                if (loadingEl) loadingEl.remove();
+
+                const botText = data.choices[0].message.content;
+                appendMessage(botText, 'bot-message');
+
+                chatHistory.push({ role: "user", content: userText });
+                chatHistory.push({ role: "assistant", content: botText });
+
+                success = true;
+                break; // Stop loop
+            }
+
+        } catch (error) {
+            console.error(`Excepción con modelo ${model}:`, error);
+            if (error.message === "AUTH_ERROR") {
+                lastError = { message: "Invalid API Key" };
+                break; // Stop retrying
+            }
+            lastError = error;
+            // Continue to next model
         }
+    }
 
-        if (data.choices && data.choices[0] && data.choices[0].message) {
-            const botText = data.choices[0].message.content;
-
-            // Append Bot Response
-            appendMessage(botText, 'bot-message');
-
-            // Save to history
-            chatHistory.push({ role: "user", content: userText });
-            chatHistory.push({ role: "assistant", content: botText });
-
-        } else {
-            console.warn("Unexpected API response structure:", data);
-            appendMessage("⚠️ (Sin respuesta)", 'bot-message error');
-        }
-
-    } catch (error) {
-        console.error("Fetch Error:", error);
+    // --- ERROR HANDLING (If all models failed) ---
+    if (!success) {
         const loadingEl = document.getElementById(loadingId);
         if (loadingEl) loadingEl.remove();
-        appendMessage("⚠️ Error de conexión.", 'bot-message error');
+
+        let errorMsg = lastError ? (lastError.message || JSON.stringify(lastError)) : "Error desconocido de conexión";
+
+        // Check for key issues specifically (Auth Error)
+        if (JSON.stringify(errorMsg).toLowerCase().includes('key') ||
+            JSON.stringify(errorMsg).toLowerCase().includes('auth')) {
+            const recoveryHtml = `
+                <strong>⚠️ Error de Autenticación:</strong><br>
+                ${errorMsg}<br><br>
+                <span>Ingresa una API Key válida (OpenRouter):</span>
+                <div style="display:flex; gap:5px; margin-top:5px;">
+                    <input type="text" id="newApiKeyInput" placeholder="sk-or-v1-..." style="width:100%; padding:5px; border:1px solid #ccc; border-radius:4px;">
+                    <button onclick="saveNewKey()" style="background:var(--primary); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Guardar</button>
+                </div>
+            `;
+            appendMessage(recoveryHtml, 'bot-message error');
+        } else {
+            appendMessage(`⚠️ El sistema está saturado temporalmente. (Error: ${errorMsg})`, 'bot-message error');
+        }
     }
 }
 
