@@ -256,7 +256,7 @@ async function sendMessage() {
                 'X-Title': 'M23 Sport Chatbot' // Optional: Your site name
             },
             body: JSON.stringify({
-                model: "tngtech/deepseek-r1t-chimera:free",
+                model: "google/gemini-2.0-flash-lite-preview-02-05:free",
                 messages: messagesPayload
             })
         });
