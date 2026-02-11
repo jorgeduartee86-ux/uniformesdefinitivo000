@@ -259,7 +259,10 @@ async function sendMessage() {
             let errorMsg = data.error.message || "Error desconocido";
 
             // Check for key issues specifically
-            if (JSON.stringify(errorMsg).toLowerCase().includes('key')) {
+            if (JSON.stringify(errorMsg).toLowerCase().includes('key') || 
+                JSON.stringify(errorMsg).toLowerCase().includes('user not found') || 
+                JSON.stringify(errorMsg).toLowerCase().includes('unauthorized') ||
+                data.error.code === 401) {
                 const recoveryHtml = `
                     <strong>⚠️ Error de Autenticación:</strong><br>
                     ${errorMsg}<br><br>
