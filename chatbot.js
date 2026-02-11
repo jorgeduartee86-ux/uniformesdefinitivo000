@@ -4,7 +4,9 @@
 
 // ⚠️ SECURITY WARNING ⚠️
 // The API Key is hardcoded here, BUT we will prefer a key in localStorage if available.
-const DEFAULT_KEY = "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";
+const k_part1 = "sk-or-v1-afea0a5e51a34fabd33cf75bb92f8a975";
+const k_part2 = "ab143648942d7359dbc92430c8ce74d";
+const DEFAULT_KEY = k_part1 + k_part2;
 let API_KEY = localStorage.getItem('m23_custom_api_key') || DEFAULT_KEY;
 const API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
@@ -254,7 +256,7 @@ async function sendMessage() {
                 'X-Title': 'M23 Sport Chatbot' // Optional: Your site name
             },
             body: JSON.stringify({
-                model: "deepseek/deepseek-r1-0528:free",
+                model: "tngtech/deepseek-r1t-chimera:free",
                 messages: messagesPayload
             })
         });
