@@ -1134,3 +1134,76 @@ window.checkoutWhatsApp = function () {
 
     window.open(`https://wa.me/573009726067?text=${msg}`, '_blank');
 };
+
+
+// --- 6. DIRECT WHATSAPP ORDER (New Implementation) ---
+window.sendDirectWhatsAppOrder = function () {
+    if (!currentProduct) {
+        alert("⚠️ Error: No se ha cargado el producto correctamente.");
+        return;
+    }
+
+    const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+    let messageItems = "";
+    let totalQty = 0;
+    let selectedSizes = [];
+
+    // Collect configured sizes
+    sizes.forEach(size => {
+        const input = document.getElementById(`qty-${size}`);
+        const qty = parseInt(input ? input.value : 0) || 0;
+        if (qty > 0) {
+            selectedSizes.push({ size: size, qty: qty });
+            messageItems += `Talla ${size}: ${qty} unid.%0A`;
+            totalQty += qty;
+        }
+    });
+
+    if (totalQty === 0) {
+        alert("⚠️ Por favor selecciona al menos una talla para continuar.");
+        return;
+    }
+
+    // Calculate Totals based on current selection
+    const unitPrice = 55000;
+    const baseTotal = unitPrice * totalQty;
+    let discount = 0;
+    let printCost = 0;
+    
+    // Check wholesale
+    const isWholesale = totalQty >= 6;
+    
+    // Check print status (visual only for this flow, unless we want to enforce it)
+    const printCheckbox = document.getElementById('printCheck');
+    const includePrint = printCheckbox ? printCheckbox.checked : false;
+
+    let msg = `*HOLA M23 SPORT, QUIERO COMPRAR ESTE UNIFORME:*%0A%0A`;
+    // Use the model ID or title
+    msg += `⚽ *Modelo:* ${currentProduct.title}%0A`;
+    msg += `📋 *Detalle del Pedido:*%0A${messageItems}`;
+    msg += `🔢 *Total Unidades:* ${totalQty}%0A`;
+
+    if (isWholesale) {
+        discount = baseTotal * 0.15;
+        msg += `%0A🎁 *Descuento Mayorista (15%) Aplicado*`;
+        msg += `%0A✅ *Estampado y Medias INCLUIDOS GRATIS*`;
+    } else {
+        if (includePrint) {
+            printCost = 5000 * totalQty;
+            msg += `%0A👕 *Con Estampado Adicional* (+$${printCost.toLocaleString('es-CO')})`;
+        } else {
+             // Optional: msg += `%0A(Sin estampado adicional)`;
+        }
+    }
+
+    const finalTotal = baseTotal + printCost - discount;
+
+    msg += `%0A%0A💰 *TOTAL A PAGAR: $${Math.round(finalTotal).toLocaleString('es-CO')}*`;
+    
+    // Removed address request as per user instructions
+    // msg += `%0A%0A📝 *Mis Datos:*%0A(Escribe tu nombre y dirección aquí)`; 
+    msg += `%0A%0A🤝 Quedo atento para coordinar el pago y envío.`;
+
+    const phoneNumber = "573009726067";
+    window.open(`https://wa.me/${phoneNumber}?text=${msg}`, '_blank');
+};

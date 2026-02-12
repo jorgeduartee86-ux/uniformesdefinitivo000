@@ -267,38 +267,14 @@
             </div>
 
             <!-- Customer Data Form -->
-            <div class="customer-form-section">
-                <h3>DATOS DE ENTREGA</h3>
-                <form id="purchaseForm">
-                    <div class="form-group">
-                        <input type="text" id="custName" placeholder="Nombre Completo" required class="form-control"
-                            style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc;">
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" id="custPhone" placeholder="Teléfono / Celular" required class="form-control"
-                            style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc;">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="custCity" placeholder="Ciudad" required class="form-control"
-                            style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc;">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="custAddress" placeholder="Dirección de Envío" required
-                            class="form-control"
-                            style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc;">
-                    </div>
-                    <div class="form-group">
-                        <textarea id="custObs" placeholder="Observaciones (Nombres, números, detalles especiales...)"
-                            rows="3" class="form-control"
-                            style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc;"></textarea>
-                    </div>
-
-                    <div class="cart-actions">
-                        <button class="btn btn-primary" onclick="window.addToCart()">
-                            AÑADIR AL CARRITO <i class="fas fa-shopping-cart"></i>
-                        </button>
-                    </div>
-                </form>
+            <!-- Direct WhatsApp Purchase Button -->
+            <div class="customer-form-section" style="border-top: 2px solid var(--primary); padding-top: 30px; text-align: center;">
+                <button class="btn btn-primary" onclick="window.sendDirectWhatsAppOrder()" style="width: 100%; font-size: 1.2rem; padding: 15px; background: #25D366; border: none; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i> COMPLETAR PEDIDO POR WHATSAPP
+                </button>
+                <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+                    * Coordinaremos el pago y envío directamente por WhatsApp.
+                </p>
             </div>
         </div>
     </div>
