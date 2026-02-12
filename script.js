@@ -949,7 +949,7 @@ function injectCartHTML() {
                 </div>
 
                 <button class="btn-checkout" onclick="checkoutWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> COMPLETAR COMPRA
+                    <i class="fab fa-whatsapp"></i> TERMINAR COMPRA POR WHATSAPP
                 </button>
             </div>
         </div>
@@ -1132,5 +1132,5 @@ window.checkoutWhatsApp = function () {
     msg += `%0A%0A💰 *TOTAL A PAGAR: $${Math.round(finalTotal).toLocaleString('es-CO')}*`;
     msg += `%0A%0A📝 *Mis Datos:*%0A(Escribe tu nombre y dirección aquí)`;
 
-    window.open(`https://wa.me/573001234567?text=${msg}`, '_blank');
+    window.open(`https://wa.me/573009726067?text=${msg}`, '_blank');
 };
