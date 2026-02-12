@@ -254,10 +254,8 @@ img {
 
 @media (max-width: 480px) {
     .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-        /* Force 2 columns on small mobile */
-        gap: 10px;
-        /* Smaller gap for mobile */
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 }
 
@@ -290,8 +288,7 @@ img {
 
 @media (max-width: 480px) {
     .product-image {
-        height: 180px;
-        /* Smaller height for mobile */
+        height: 350px;
     }
 }
 
@@ -351,28 +348,23 @@ img {
 
 @media (max-width: 480px) {
     .product-info {
-        padding: 10px 5px;
-        /* Minimal padding on mobile */
+        padding: 20px;
     }
 
     .product-info h3 {
-        font-size: 1rem;
-        /* Smaller title */
-        margin-bottom: 2px;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
     }
 
     .product-info p {
-        font-size: 0.8rem;
-        margin-bottom: 5px;
+        font-size: 1rem;
+        margin-bottom: 15px;
     }
 
     .btn-chat-product {
-        font-size: 0.8rem !important;
-        /* Smaller text on button */
-        padding: 8px !important;
+        font-size: 1rem !important;
+        padding: 12px !important;
     }
-
-    /* Hide specific details if too cluttered, but chat button is key */
 }
 
 .product-info h3 {
