@@ -24,6 +24,7 @@ window.openChatFromDetail = function () {
     }
 };
 
+
 // --- 6. COLOMBIA MODAL LOGIC ---
 function initColombiaModal() {
     const modal = document.getElementById("colombiaModal");
@@ -53,6 +54,47 @@ function initColombiaModal() {
         }
     }
 }
+
+// --- 7. NINOS MODAL LOGIC ---
+function initNinosModal() {
+    const modal = document.getElementById("ninosModal");
+    const btns = [document.getElementById("btnNinosHero")];
+    const span = document.getElementsByClassName("close-modal-ninos")[0];
+
+    btns.forEach(btn => {
+        if (btn && modal) {
+            btn.onclick = function (e) {
+                e.preventDefault(); // Prevent hash jump
+                modal.style.display = "flex";
+            }
+        }
+    });
+
+    if (span && modal) {
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+    }
+
+    // Window click closing logic needs to handle both modals or check specificity
+    // Since window.onclick is overwritten in initColombiaModal, we need a unified approach or careful ordering.
+    // The previous initColombiaModal sets window.onclick. If we set it again here, we overwrite it.
+    // Better to append or use addEventListener. But existing code uses onclick.
+    // Let's modify window.onclick to handle both if they exist.
+
+    window.addEventListener('click', function (event) {
+        const colombiaModal = document.getElementById("colombiaModal");
+        const ninosModal = document.getElementById("ninosModal");
+
+        if (event.target == colombiaModal) {
+            colombiaModal.style.display = "none";
+        }
+        if (event.target == ninosModal) {
+            ninosModal.style.display = "none";
+        }
+    });
+}
+
 
 
 
@@ -427,6 +469,33 @@ window.colombiaProducts = [
     };
 });
 
+window.ninosProducts = [
+    "https://i.ibb.co/Xft7V6bF/Whats-App-Image-2026-02-12-at-11-12-35-AM.jpg",
+    "https://i.ibb.co/p5KFtsf/Whats-App-Image-2026-02-12-at-11-12-36-AM-1.jpg",
+    "https://i.ibb.co/Mxf6RNS8/Whats-App-Image-2026-02-12-at-11-12-36-AM.jpg",
+    "https://i.ibb.co/JjCqWW0x/Whats-App-Image-2026-02-12-at-11-12-37-AM-1.jpg",
+    "https://i.ibb.co/s9YfXzg7/Whats-App-Image-2026-02-12-at-11-12-37-AM.jpg",
+    "https://i.ibb.co/4ZmGyHdy/Whats-App-Image-2026-02-12-at-11-12-38-AM.jpg",
+    "https://i.ibb.co/HTBqrDx0/Whats-App-Image-2026-02-12-at-11-12-39-AM-1.jpg",
+    "https://i.ibb.co/4ZNb0TtF/Whats-App-Image-2026-02-12-at-11-12-39-AM.jpg",
+    "https://i.ibb.co/pB6Rp7qQ/Whats-App-Image-2026-02-12-at-11-12-40-AM-1.jpg",
+    "https://i.ibb.co/YFt1RvNj/Whats-App-Image-2026-02-12-at-11-12-40-AM.jpg",
+    "https://i.ibb.co/6JDkYM9r/Whats-App-Image-2026-02-12-at-11-12-41-AM-1.jpg",
+    "https://i.ibb.co/Cs6VNV7p/Whats-App-Image-2026-02-12-at-11-12-41-AM.jpg",
+    "https://i.ibb.co/27TqjN7c/Whats-App-Image-2026-02-12-at-11-12-42-AM.jpg"
+].map((img, index) => {
+    const modelId = `KIDS-${String(index + 1).padStart(2, '0')}`;
+    return {
+        id: `kids-${index + 1}`,
+        modelId: modelId,
+        title: modelId,
+        displayTitle: `Diseño: ${modelId}`,
+        image: img,
+        basePrice: 55000,
+        description: "Uniforme de niño personalizable."
+    };
+});
+
 // Global State
 let currentProduct = null;
 let currentSize = null;
@@ -473,6 +542,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // G. Colombia Modal
     initColombiaModal();
+
+    // H. Ninos Modal
+    initNinosModal();
+
+    // I. Ninos Rendering
+    const ninosGrid = document.getElementById('ninos-catalog-grid');
+    if (ninosGrid) renderNinosCatalog(ninosGrid);
 });
 
 
@@ -556,6 +632,38 @@ function renderCatalog(container) {
 
 function renderColombiaCatalog(container) {
     window.colombiaProducts.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.setAttribute('data-model', product.modelId);
+
+        card.innerHTML = `
+            <div class="product-image">
+                <img src="${product.image}" alt="${product.title}">
+                <div class="product-overlay">
+                    <button onclick="window.openChatWithProduct('${product.modelId}')" class="btn-icon"><i class="fab fa-whatsapp"></i></button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>${product.title}</h3>
+                <p class="price">$${product.basePrice.toLocaleString('es-CO')}</p>
+                
+                <div class="card-actions" style="display: flex; flex-direction: column; gap: 8px; margin-top: 15px;">
+                    <button onclick="window.openChatWithProduct('${product.modelId}')" class="btn-chat-product" style="background: var(--primary); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s;">
+                        <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+                    </button>
+                    <!-- Detail button points to chat for now as there is no specific page -->
+                    <button onclick="window.openChatWithProduct('${product.modelId}')" class="btn-link" style="text-align: center; display: block; border: 1px solid var(--primary); padding: 8px; border-radius: 5px; color: var(--primary); background: transparent; width: 100%; cursor: pointer;">
+                        VER DETALLES
+                    </button>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function renderNinosCatalog(container) {
+    window.ninosProducts.forEach(product => {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.setAttribute('data-model', product.modelId);
